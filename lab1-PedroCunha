@@ -1,1 +1,60 @@
+import java.util.Scanner;
 
+public class Main {
+
+public static void main(String[] args) {
+
+        Scanner menu = new Scanner (System.in);
+
+        System.out.print("##--Teste Estrutura de Menu--##\n\n");
+        System.out.print("|-----------------------------|\n");
+        System.out.print("| Opção 1 - Novo Cadastro     |\n");
+        System.out.print("| Opção 2 - Clientes          |\n");
+        System.out.print("| Opção 3 - Produtos          |\n");
+        System.out.print("|-----------------------------|\n");
+        System.out.println("4  Cachorro quente simples na chapa \n");
+        System.out.println("5 Cachorro quente completo  na chapa\n");
+        System.out.println("6 Cachorro quente simples no molho \n");
+        System.out.println("7 Cachorro quente completo no molho \n");
+        System.out.print("| Opção 8 - Sair              |\n");
+        System.out.print("Digite uma opção: ");
+
+
+        int opcao = menu.nextInt();
+
+
+        switch (opcao) {
+        case 1:
+            System.out.print("\nOpção Novo Cadastro Selecionado");
+            break;
+
+        case 2:
+            System.out.print("\nOpção Clientes Selecionado\n");
+            break;
+
+        case 3:
+            System.out.print("\nOpção Produtos Selecionado\n");
+            break;
+            
+        case 4:
+            System.out.println(" Cachorro quente simples na chapa.");
+            break;
+        case 5:
+            System.out.println(" Cachorro quente completo na chapa.");
+            break;
+        case 6:
+            System.out.println(" Cachorro quente simples no molho .");
+            break;
+        case 7:
+            System.out.println(" Cachorro quente completo no molho .");
+            break;
+
+        default:
+            System.out.print("\nOpção Inválida!");
+            break;
+
+        case 8:
+            System.out.print("\nAté logo!");
+            menu.close();       
+        }
+    }
