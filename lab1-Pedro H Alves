@@ -1,1 +1,38 @@
+import java.util.Scanner;
+    public class Main {
+        public static void main(String[] args) {
+            // Declaração de variável
+            int opcao;
+            // Cria objeto para entrada da opção do cardápio
+            Scanner leitorOpcao = new Scanner(System.in);
+            //Apresenta o cardápio
+            System.out.println("1  Cachorro quente simples na chapa \n");
+            System.out.println("2 Cachorro quente completo  na chapa\n");
+            System.out.println("3  Cachorro quente simples no molho \n");
+            System.out.println("4  Cachorro quente completo no molho \n");
+            // Entrada da opção do cardápio
+            System.out.print("Escolha uma opção: ");
+            opcao = leitorOpcao.nextInt();
+            //Seleção da opção
+            switch(opcao)
+            {
+                case 1:
+                    System.out.println(" Cachorro quente simples na chapa.");
+                    break;
+                case 2:
+                    System.out.println(" Cachorro quente completo na chapa.");
+                    break;
+                case 3:
+                    System.out.println(" Cachorro quente simples no molho .");
+                    break;
+                case 4:
+                    System.out.println(" Cachorro quente completo no molho .");
+                    break;
+                default:
+                    System.out.println("Opção invalida!");
+                    break;
+            }
+        }
+    }
 
+   
