@@ -1,83 +1,101 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class SistemaPessoa extends JFrame {
-    
-    public SistemaPessoa() {
-        // Configuração da janela principal
-        setTitle("Sistema de Pessoa");
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+// Classe principal que contém o método main
+public class SistemaPessoa {
+    public static void main(String[] args) {
+        String nomeUsuario = "denys.silva";
+        String versaoSistema = "12.1.2024";
         
-        // Criação do layout principal
-        setLayout(new BorderLayout());
+        // Cria a janela principal do sistema
+        JFrame principal = new JFrame("Sistema Pessoa");
+        principal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        principal.setSize(800, 800);
+        
+        // Cria instâncias das outras classes para adicionar os componentes à janela
+        Menu menu = new Menu(principal);
+        Rodape rodape = new Rodape(versaoSistema, nomeUsuario);
+        
+        // Área de trabalho (central)
+        JTextArea areaTrabalho = new JTextArea();
+        
+        // Adiciona componentes ao frame principal
+        principal.getContentPane().add(BorderLayout.NORTH, menu.getMenuPrincipal());
+        principal.getContentPane().add(BorderLayout.CENTER, areaTrabalho);
+        principal.getContentPane().add(BorderLayout.SOUTH, rodape.getPainelRodape());
 
-        // Adiciona o menu dinâmico na janela
-        JMenuBar menuBar = criarMenu();
-        setJMenuBar(menuBar);
-
-        // Adiciona o rodapé
-        JPanel rodape = criarRodape();
-        add(rodape, BorderLayout.SOUTH);
+        principal.setLocationRelativeTo(null); // Centraliza a janela
+        principal.setVisible(true); // Torna a janela visível
     }
+}
 
-    // Método para criar o menu dinâmico
-    private JMenuBar criarMenu() {
-        JMenuBar menuBar = new JMenuBar();
+// Classe Menu, responsável por criar e configurar o menu do sistema
+class Menu {
+    private JMenuBar menuPrincipal;
+
+    public Menu(JFrame principal) {
+        menuPrincipal = new JMenuBar();
         
+        // Criação dos menus
         JMenu menuCadastro = new JMenu("Cadastro");
         JMenu menuVisualizacao = new JMenu("Visualização");
-        JMenuItem menuSair = new JMenuItem("Sair");
+        JMenu menuSair = new JMenu("Sair");
 
-        // Subitens do menu "Cadastro"
-        JMenuItem usuariosItem = new JMenuItem("Usuários");
-        JMenuItem pessoasItem = new JMenuItem("Pessoas");
-        menuCadastro.add(usuariosItem);
-        menuCadastro.add(pessoasItem);
+        // Opções de Cadastro
+        JMenuItem itemMenuCadastroUsuarios = new JMenuItem("Usuários");
+        JMenuItem itemMenuCadastroPessoas = new JMenuItem("Pessoas");
+        menuCadastro.add(itemMenuCadastroUsuarios);
+        menuCadastro.add(itemMenuCadastroPessoas);
 
-        // Subitens do menu "Visualização"
-        JMenuItem listaUsuariosItem = new JMenuItem("Lista de usuário");
-        JMenuItem listaPessoasItem = new JMenuItem("Lista de Pessoas");
-        menuVisualizacao.add(listaUsuariosItem);
-        menuVisualizacao.add(listaPessoasItem);
+        // Opções de Visualização
+        JMenuItem itemMenuVisualizacaoListaUsuarios = new JMenuItem("Lista de usuários");
+        JMenuItem itemMenuVisualizacaoListaPessoas = new JMenuItem("Lista de pessoas");
+        menuVisualizacao.add(itemMenuVisualizacaoListaUsuarios);
+        menuVisualizacao.add(itemMenuVisualizacaoListaPessoas);
 
-        // Ação do item "Sair"
-        menuSair.addActionListener(new ActionListener() {
+        // Adiciona evento de sair no menu Sair
+        menuSair.addMenuListener(new javax.swing.event.MenuListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0); // Encerra o programa ao clicar em "Sair"
+            public void menuSelected(javax.swing.event.MenuEvent e) {
+                System.exit(0);
             }
+
+            @Override
+            public void menuDeselected(javax.swing.event.MenuEvent e) { }
+
+            @Override
+            public void menuCanceled(javax.swing.event.MenuEvent e) { }
         });
 
-        // Adiciona menus ao menuBar
-        menuBar.add(menuCadastro);
-        menuBar.add(menuVisualizacao);
-        menuBar.add(menuSair);
-
-        return menuBar;
+        // Adiciona menus à barra de menu
+        menuPrincipal.add(menuCadastro);
+        menuPrincipal.add(menuVisualizacao);
+        menuPrincipal.add(menuSair);
     }
 
-    // Método para criar o rodapé
-    private JPanel criarRodape() {
-        JPanel rodape = new JPanel();
-        rodape.setLayout(new FlowLayout(FlowLayout.CENTER));
+    public JMenuBar getMenuPrincipal() {
+        return menuPrincipal;
+    }
+}
 
-        JLabel mensagemRodape = new JLabel("Avaliação 3 Parcial – GUI Principal");
-        rodape.add(mensagemRodape);
+// Classe Rodape, responsável por criar o painel de rodapé do sistema
+class Rodape {
+    private JPanel painelRodape;
+    private JLabel labelRodape;
 
-        return rodape;
+    public Rodape(String versaoSistema, String nomeUsuario) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        String dataAcesso = dateFormat.format(new Date());
+        
+        painelRodape = new JPanel();
+        labelRodape = new JLabel("Versão: " + versaoSistema + "               Usuário: " + nomeUsuario + "               Data de acesso: " + dataAcesso);
+        painelRodape.add(labelRodape);
     }
 
-    public static void main(String[] args) {
-        // Inicia a aplicação
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SistemaPessoa().setVisible(true);
-            }
-        });
+    public JPanel getPainelRodape() {
+        return painelRodape;
     }
 }
